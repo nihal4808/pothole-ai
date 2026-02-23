@@ -1,0 +1,31 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Model weights
+*.onnx
+*.pt
+*.pth
+*.weights
+
+# Environment
+.env
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+*.log
+
+# Project specific
+runs/
+outputs/
+datasets/
