@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pothole AI Dashboard</title>
+    <!-- Use Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+    <!-- Load FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-road icon-glow"></i>
+                <h2>Pothole<span class="highlight"> AI</span></h2>
+            </div>
+            <p class="subtitle">Multi-Task Realtime framework.</p>
+            <hr class="divider">
+            
+            <div class="control-group">
+                <h3><i class="fa-solid fa-camera"></i> Input Mode</h3>
+                <div class="tabs">
+                    <button class="tab-btn active" data-mode="camera">Live Camera</button>
+                    <button class="tab-btn" data-mode="upload">Image Upload</button>
+                </div>
+            </div>
+
+            <div class="control-group" id="upload-controls" style="display: none;">
+                <label class="upload-btn">
+                    <i class="fa-solid fa-upload"></i> Choose Image
+                    <input type="file" id="image-upload" accept="image/*" hidden>
+                </label>
+            </div>
+
+            <div class="control-group" id="camera-controls">
+                <button class="action-btn" id="start-camera"><i class="fa-solid fa-video"></i> Start Stream</button>
+                <button class="action-btn stop-btn" id="stop-camera" disabled><i class="fa-solid fa-video-slash"></i> Stop Stream</button>
+            </div>
+            
+            <hr class="divider">
+            <div class="info-footer">
+                <p>Status: <span id="connection-status" class="status-indicator offline">Offline</span></p>
+                <p class="caption">Powered by YOLOv8 & MiDaS</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <h1>Detection Dashboard</h1>
+            </header>
+            
+            <!-- Metrics Row -->
+            <section class="metrics-container">
+                <div class="metric-card">
+                    <div class="icon-wrap color-blue"><i class="fa-solid fa-chart-line"></i></div>
+                    <div class="metric-info">
+                        <span class="metric-value" id="val-fps">0.0</span>
+                        <span class="metric-label">FPS</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="icon-wrap color-green"><i class="fa-solid fa-magnifying-glass-location"></i></div>
+                    <div class="metric-info">
+                        <span class="metric-value" id="val-count">0</span>
+                        <span class="metric-label">Detected Potholes</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="icon-wrap color-purple"><i class="fa-solid fa-stopwatch"></i></div>
+                    <div class="metric-info">
+                        <span class="metric-value" id="val-latency">0ms</span>
+                        <span class="metric-label">Pipeline Latency</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="icon-wrap color-red"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                    <div class="metric-info">
+                        <span class="metric-value" id="val-severity">NONE</span>
+                        <span class="metric-label">Max Severity</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Viewer Area -->
+            <section class="viewer-container">
+                <div class="viewer-wrapper">
+                    <video id="webcam" autoplay playsinline hidden></video>
+                    <!-- Hidden canvas to get webcam frames -->
+                    <canvas id="hidden-canvas" hidden></canvas>
+                    
+                    <div class="frame-container">
+                        <!-- Output Image goes here -->
+                        <img id="output-frame" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'><rect width='800' height='450' fill='%23161b22'/><text x='400' y='225' font-family='sans-serif' font-size='20' fill='%238892b0' text-anchor='middle'>Stream Offline</text></svg>" alt="Live Feed">
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="/static/script.js"></script>
+</body>
+</html>
